@@ -1,0 +1,48 @@
+package com.atharv.SolarShare.service;
+
+import com.atharv.SolarShare.dto.SignupRequest;
+import com.atharv.SolarShare.model.User;
+import com.atharv.SolarShare.model.UserInfo;
+import com.atharv.SolarShare.model.UserType;
+import com.atharv.SolarShare.repo.UserInfoRepository;
+import com.atharv.SolarShare.repo.UserRepo;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserRegistrationService {
+    @Autowired
+    private UserRepo repo;
+
+    @Autowired
+    private UserInfoRepository userInfoRepo;
+
+    private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
+    @Transactional
+    public void registerNewUser(SignupRequest request) {
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(encoder.encode(request.getPassword()));
+
+        User savedUser = repo.save(user);
+
+        UserInfo info = new UserInfo();
+        info.setFullName(request.getFullName());
+        info.setPhoneNumber(request.getPhoneNumber());
+        info.setCity(request.getCity());
+
+        String typeStr = request.getUserType();
+
+        if (typeStr != null && typeStr.equalsIgnoreCase("SOLAR_COMPANY")) {
+            info.setType(UserType.SOLAR_COMPANY);
+        } else {
+            info.setType(UserType.HOMEOWNER);
+        }
+        info.setUser(savedUser);
+
+        userInfoRepo.save(info);
+    }
+}
