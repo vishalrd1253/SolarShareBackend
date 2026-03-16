@@ -69,8 +69,9 @@ public class SecurityConfig {
 
         configuration.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:5173",
-                "https://solar-share-frontend.vercel.app",
-                "https://*.vercel.app"
+                "https://*.vercel.app",
+                "https://*.netlify.app",
+                "https://solarshare-1.netlify.app"
         ));
 
         configuration.setAllowCredentials(true);
