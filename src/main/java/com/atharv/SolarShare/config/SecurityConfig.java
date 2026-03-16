@@ -58,8 +58,8 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider authProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+//        provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
     }
@@ -76,7 +76,8 @@ public class SecurityConfig {
 
         configuration.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:5173",
-                "https://solar-share-frontend.vercel.app"
+                "https://solar-share-frontend.vercel.app",
+                "https://*.vercel.app"
         ));
 
         configuration.setAllowedMethods(Arrays.asList(
