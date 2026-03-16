@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/listings")
-@CrossOrigin(originPatterns = "*")
+//@CrossOrigin(originPatterns = "*")
 public class ListingController {
 
     @Autowired
