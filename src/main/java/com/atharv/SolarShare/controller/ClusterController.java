@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clusters")
+@CrossOrigin(originPatterns = "*")
 public class ClusterController {
     @Autowired private ClusterService clusterService;
 
