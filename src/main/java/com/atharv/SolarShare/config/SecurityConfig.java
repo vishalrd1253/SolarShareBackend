@@ -67,12 +67,13 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-                "http://localhost:5173",
-                "https://*.vercel.app",
-                "https://*.netlify.app",
-                "https://solarshare-1.netlify.app"
-        ));
+//        configuration.setAllowedOriginPatterns(Arrays.asList(
+//                "http://localhost:5173",
+//                "https://*.vercel.app",
+//                "https://*.netlify.app",
+//                "https://solarshare-1.netlify.app"
+//        ));
+        configuration.setAllowedOriginPatterns(List.of("*"));
 
         configuration.setAllowCredentials(true);
 
