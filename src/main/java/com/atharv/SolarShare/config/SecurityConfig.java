@@ -67,13 +67,12 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-//        configuration.setAllowedOriginPatterns(Arrays.asList(
-//                "http://localhost:5173",
-//                "https://*.vercel.app",
-//                "https://*.netlify.app",
-//                "https://solarshare-1.netlify.app"
-//        ));
-        configuration.setAllowedOriginPatterns(List.of("*"));
+        // Specify exact origins when using credentials=true (cannot use wildcard)
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://solar-share-frontend.vercel.app"
+        ));
 
         configuration.setAllowCredentials(true);
 
@@ -86,7 +85,12 @@ public class SecurityConfig {
                 "OPTIONS"
         ));
 
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(List.of(
+                "Content-Type",
+                "Authorization"
+        ));
+
+        configuration.setExposedHeaders(List.of("Authorization"));
 
         configuration.setMaxAge(3600L);
 
